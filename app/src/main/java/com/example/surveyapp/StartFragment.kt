@@ -19,18 +19,15 @@ class StartFragment : Fragment() {
             R.layout.start_fragment,container,false
         )
         viewModel=ViewModelProviders.of(this).get(EncuestaViewModel::class.java)
-        var lista=viewModel.lista_preguntas
-        var arr=Array<String>(lista.size){i->i.toString()}
-        var ind=0
-        lista.forEach{
-            arr.set(ind,it)
-            ind++
-        }
+        var preguntas=viewModel.lista_preguntas.value
+
         binding.addBtn.setOnClickListener{view:View->
-            view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToAddQuestionFragment())
+            view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToAddQuestionFragment(preguntas!!))
         }
         binding.iniciarBtn.setOnClickListener{view:View->
-            view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToQuestionFragment(arr))
+            view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToQuestionFragment(
+                preguntas!!
+            ))
         }
         return binding.root
     }

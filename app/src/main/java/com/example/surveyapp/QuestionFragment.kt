@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.surveyapp.databinding.QuestionFragmentBinding
 
 
 class QuestionFragment : Fragment() {
-    var counter=0
-    val args=QuestionFragmentArgs.fromBundle(arguments!!)
+    val args:QuestionFragmentArgs by navArgs()
     lateinit var preg:TextView
 
     override fun onCreateView(
@@ -24,23 +26,14 @@ class QuestionFragment : Fragment() {
             R.layout.question_fragment,container,false
         )
         preg=binding.textoPregunta
+        preg.setText(args.pregunta)
         binding.sigBtn.setOnClickListener{view:View->
-            sig()
+            sigAction()
         }
-        ask()
         return binding.root
     }
-    fun ask(){
-        var pregunta=args.listas[counter]
-        preg.setText(pregunta)
-    }
-    fun sig(){
-        if (counter!=args.listas.size) {
-            counter++
-            ask()
-        }else{
-            view?.findNavController()?.navigate(QuestionFragmentDirections.actionQuestionFragmentToResultadosFragment())
-        }
+    fun sigAction(){
+        findNavController().navigate(QuestionFragmentDirections.actionQuestionFragmentToResultadosFragment())
     }
 
 }

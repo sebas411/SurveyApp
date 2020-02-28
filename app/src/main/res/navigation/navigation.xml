@@ -27,6 +27,9 @@
             app:destination="@id/startFragment"
             app:popUpTo="@+id/startFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="preguntas"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -36,8 +39,9 @@
         <action
             android:id="@+id/action_questionFragment_to_resultadosFragment"
             app:destination="@id/resultadosFragment" />
-        <argument android:name="listas"
-            app:argType="string[]" />
+        <argument
+            android:name="pregunta"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/resultadosFragment"
